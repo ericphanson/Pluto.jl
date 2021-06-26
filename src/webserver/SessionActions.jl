@@ -1,6 +1,8 @@
 module SessionActions
 
 import ..Pluto: ServerSession, Notebook, Cell, emptynotebook, tamepath, new_notebooks_directory, without_pluto_file_extension, numbered_until_new, readwrite, update_save_run!, putnotebookupdates!, putplutoupdates!, load_notebook, clientupdate_notebook_list, WorkspaceManager, @asynclog
+import ..Pluto: update_from_file
+using FileWatching
 
 struct NotebookIsRunningException <: Exception
     notebook::Notebook
@@ -53,6 +55,11 @@ function open(session::ServerSession, path::AbstractString; run_async=true, comp
         @asynclog putplutoupdates!(session, clientupdate_notebook_list(session.notebooks))
     else
         putplutoupdates!(session, clientupdate_notebook_list(session.notebooks))
+    end
+
+    @asynclog while true
+        watch_file(nb.path)
+        update_from_file(session, nb)
     end
 
     nb
