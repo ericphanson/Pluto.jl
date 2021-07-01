@@ -1986,7 +1986,8 @@ nav#undo_delete.hidden {
 /* PRESENTATION MODE */
 
 body.presentation pluto-output h1,
-body.presentation pluto-output h2 {
+body.presentation pluto-output h2,
+body.presentation pluto-output h3 {
     margin-top: 100vh;
 }
 body.presentation pluto-notebook {
