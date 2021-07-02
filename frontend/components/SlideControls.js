@@ -45,6 +45,20 @@ export const SlideControls = () => {
         document.body.classList.toggle("presentation")
     }
 
+    document.onkeydown = function(e) {
+        if ( document.body.classList.contains("presentation") === true )
+        {
+            switch (e.key) {
+                case "ArrowLeft":
+                    go_previous_slide(e);
+                    break;
+                case "ArrowRight":
+                    go_next_slide(e);
+                    break;
+            }
+        }
+    };
+
     return html`
         <nav id="slide_controls">
             <button class="changeslide prev" title="Previous slide" onClick=${go_previous_slide}><span></span></button>
